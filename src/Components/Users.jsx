@@ -1,4 +1,5 @@
 import React, { use, useState } from 'react';
+import { Link } from 'react-router';
 
 
 const Users = ({usersPromise}) => {
@@ -29,8 +30,11 @@ const Users = ({usersPromise}) => {
                 newUser._id= data.insertedId;
                 setUsers([...users,newUser]);
                 alert("user is successfully added");
+                 e.target.reset();
             }
+           
         })
+         
     }
      const handleDeleteUser =(id) =>{
         console.log("delete the user", id)
@@ -46,6 +50,7 @@ const Users = ({usersPromise}) => {
                 const remaininUsers = users.filter(user => user._id !== id );
                 setUsers(remaininUsers);
                 console.log("after delete", data);
+               
             }
         })
      }
@@ -70,6 +75,8 @@ const Users = ({usersPromise}) => {
                         <p 
                         key={user._id}>
                         {user.name} : {user.email} 
+                        <Link to={`users/${user._id}`}>Details</Link>
+                        <Link to={`update/${user._id}`}>Edit</Link>
                         <button onClick={()=>handleDeleteUser(user._id)}>X</button></p>)
                 }
             </div>
